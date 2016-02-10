@@ -5,14 +5,16 @@ publication: *Traffic forecasting in complex urban networks: Leveraging big data
 
 Please cite the following if you use any of the resources here:
 
-> @inproceedings{schimbinschi2015traffic,
->   title={Traffic forecasting in complex urban networks: Leveraging big data and machine learning},
->   author={Schimbinschi, Florin and Nguyen, Xuan Vinh and Bailey, James and Leckie, Chris and Vu, Hai and Kotagiri, Rao},
->   booktitle={Big Data (Big Data), 2015 IEEE International Conference on},
->   pages={1019--1024},
->   year={2015},
->   organization={IEEE}
-> }
+```TeX
+@inproceedings{schimbinschi2015traffic,
+    title={Traffic forecasting in complex urban networks: Leveraging big data and machine learning},
+    author={Schimbinschi, Florin and Nguyen, Xuan Vinh and Bailey, James and Leckie, Chris and Vu, Hai and Kotagiri, Rao},
+    booktitle={Big Data (Big Data), 2015 IEEE International Conference on},
+    pages={1019--1024},
+    year={2015},
+    organization={IEEE}
+}
+```
 
 ## Main Files
 
@@ -35,8 +37,8 @@ The folder **tdata** contains the data files.
     which yields *96 observations per day*.
     The start date for the recordings is the *1st of January 2007*.
     This file was split into 3 parts. Use these commands to merge files:
-    > unix : `cat VolumeData_tensor.mat_part_* > VolumeData_tensor.mat`
-    > windows : `copy /b VolumeData_tensor.mat_part_* VolumeData_tensor.mat`
+    * unix : `cat VolumeData_tensor.mat_part_* > VolumeData_tensor.mat`
+    * windows : `copy /b VolumeData_tensor.mat_part_* VolumeData_tensor.mat`
 
  * `centerRoads.mat` -- contains the gps *coordinates* and *direction* for each sensor.
  * `euclidean.mat` -- matrix containing the Euclidean distance between sensors.
@@ -49,19 +51,20 @@ and the helper files for visualisation.
 
  * `construct_sliding_dataset.m` -- Processes the original tensorial data by
 	transforming it first to a continuous time-series for each sensor, then a
-	sliding window is used to generate the response $y$ and predictor $X$ values.
+	sliding window is used to generate the response **y** and predictor **X** values.
 	The data is split (70/30) into training/testing by default.
 	A thresold for labeling whether traffic volume is high (1) or low (0) is set
 	at the 0.85 quantile and is specific for each sensor. This script is ram hungry.
 	Returns a .mat file containing six matrices according to the parameter setup:
 	1. `trnDat` -- the predictor variables. Rows contain the concatenated
-	sliding windows for each sensor. In total there are $ S \times w $ (the window size).
-	2. `trnLbl` -- the response variable (continuous)
+	sliding windows for each sensor.
+	In total there are **S x W** (the window size) values for each row.
+	2. `trnLbl` -- the response variable (continuous / integer - positive)
 	3. `trnLblBin` -- the binary response variable according to the threshold.
 	4. `tst*` -- the equivalent for testing data.
  
 
- * `get_data_slice.m` -- Returns the data slice $X$ and $y$ variables for a 
+ * `get_data_slice.m` -- Returns the data slice **X** and **y** variables for a 
    specific sensor, as stored by `construct_sliding_dataset.m`.
    
  * `get_closest_idx.m` -- Returns the closest *K* sensors to a query sensor.
